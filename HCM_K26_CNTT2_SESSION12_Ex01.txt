@@ -1,0 +1,40 @@
+SESSION12
+Bài 1 : Chuẩn hóa quy trình đối soát giao dịch ví điện tử
+
+Tên lớp: HCM K26 CNTT2
+Môn học: Nhập môn công nghệ thông tin
+Họ và tên: LƯƠNG THANH THƯ
+
+Phần 1. Phân tích
+
+Field là mỗi cột trong bảng (MaGD, NgayGD, MaUser, LoaiGD, SoTien, PhiNganHang, TrangThai) → có 7 field.
+Record là mỗi hàng, tương ứng một giao dịch hoàn chỉnh. Hàng tiêu đề không tính là record.
+Khóa chính là MaGD vì mỗi giao dịch có một mã riêng, không trùng. MaUser là khóa ngoại để nối sang bảng người dùng.
+Dữ liệu chuẩn Database: không Merge Cell, không để hàng trống giữa các record, mỗi cột chỉ một kiểu dữ liệu.
+
+Phần 2. Triển khai
+- Word (SRS 5 trang):
+
+Dùng Heading 1 cho các phần lớn (Giới thiệu, Mô tả tổng quan, Yêu cầu chức năng, Yêu cầu phi chức năng, Phụ lục).
+Dùng Heading 2 cho từng yêu cầu nhỏ (FR-01 đến FR-06 về hoàn tiền).
+Chèn mục lục tự động (References → Table of Contents), làm xong thì Update Field.
+
+- Excel:
+
+Dùng TRIM để xóa khoảng trắng thừa trước khi tra cứu.
+Dùng công thức =VLOOKUP(TRIM(C2), NguoiDung!$A$2:$B$100, 2, FALSE). Tham số FALSE để tra chính xác, có dấu $ để vùng tra không bị trượt khi kéo công thức.
+Không Merge Cell, không để hàng trống.
+
+- PowerPoint (Rule 10/20/30):
+
+Tối đa 10 slide, trình bày 20 phút, font từ 30pt trở lên.
+Tiêu đề viết dạng khẳng định có số liệu, ví dụ “Doanh thu tăng 15% nhờ ưu đãi nạp điện thoại”.
+Dùng biểu đồ (cột, tròn, đường) thay vì dán bảng số, mỗi slide chỉ một thông điệp.
+
+Phần 3. Kiểm thử khi VLOOKUP báo #N/A
+- Lỗi này nghĩa là Excel không tìm thấy giá trị cần tra. Mình kiểm tra 4 điểm theo thứ tự:
+
++ Khoảng trắng thừa: so LEN với độ dài mã chuẩn, nếu dư thì dùng TRIM để xử lý.
++ Sai kiểu dữ liệu: một bên là Text, một bên là Number thì Excel coi là khác nhau. Kiểm tra bằng ISTEXT, ISNUMBER, rồi đồng bộ lại.
++ Sai cấu trúc bảng tra: cột cần tra phải nằm đầu tiên của vùng, có khóa $, số cột không vượt quá vùng và tham số cuối là FALSE.
++ Mã thật sự không tồn tại: dùng COUNTIF, nếu ra 0 thì mã bị thiếu hoặc nhập sai (ví dụ nhầm chữ O với số 0), cần bổ sung hoặc sửa lại.
